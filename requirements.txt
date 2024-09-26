@@ -1,0 +1,12 @@
+Flask
+mysql-connector-python
+Flask-SQLAlchemy
+Flask-JWT-Extended
+flask-swagger-ui
+pytest
+flask-cors
+allure-pytest
+behave
+requests
+werkzeug
+faker
