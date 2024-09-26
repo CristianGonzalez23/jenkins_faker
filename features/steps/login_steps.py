@@ -5,6 +5,8 @@ import logging
 from jsonschema import validate, ValidationError
 from faker import Faker
 
+API_URL = "http://192.168.1.108:5000"
+
 # Configura el logging al nivel INFO
 logging.basicConfig(level=logging.INFO)
 
@@ -41,12 +43,12 @@ def step_given_random_user_data(context):
 
 @when('I check if the user exists and create if necessary')
 def step_when_check_and_create_user(context):
-    check_url = f'http://localhost:5000/usuarios/verificar'
+    check_url = f'{API_URL}/usuarios/verificar'
     response = requests.post(check_url, json={'email': context.user_data['email']})
 
     if response.status_code == 404:
         logging.info('User does not exist, creating user.')
-        create_url = f'http://localhost:5000/usuarios'
+        create_url = f'{API_URL}/usuarios'
         create_response = requests.post(create_url, json=context.user_data)
         logging.info(f'Create user response status code: {create_response.status_code}')  # Logging create user response status code
         logging.info(f'Create user response body: {create_response.text}')  # Logging create user response body
@@ -59,7 +61,7 @@ def step_when_check_and_create_user(context):
 # Paso para enviar la solicitud POST
 @when('I send a POST request to "{endpoint}" with user data')
 def step_when_send_post_request(context, endpoint):
-    url = f'http://localhost:5000{endpoint}'  # Asegúrate de que la URL sea correcta
+    url = f'{API_URL}{endpoint}'  # Asegúrate de que la URL sea correcta
     headers = {'Content-Type': 'application/json'}  # Incluimos los headers manualmente
     logging.info(f'Sending POST request to URL: {url} with data: {context.user_data}')  # Logging URL and data
     response = requests.post(url, json=context.user_data, headers=headers)  # Asegura el formato JSON

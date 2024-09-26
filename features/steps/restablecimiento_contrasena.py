@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash
 from faker import Faker
 import logging
 
-API_URL = "http://localhost:5000"
+API_URL = "http://192.168.1.108:5000"
 
 # Inicializa Faker
 fake = Faker()

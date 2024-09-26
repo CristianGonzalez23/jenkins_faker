@@ -4,6 +4,8 @@ import requests
 from jsonschema import validate, ValidationError
 from faker import Faker
 
+API_URL = "http://192.168.1.108:5000"
+
 # Variable global para almacenar los datos del usuario
 user_data = {}
 fake = Faker()
@@ -47,7 +49,7 @@ def step_given_user_data(context, nombre, email, clave):
 
 @when('I check if the user exists and delete if necessary')
 def step_when_check_and_delete_user(context):
-    delete_url = f'http://localhost:5000/usuarios/verificar_y_eliminar'
+    delete_url = f'{API_URL}/usuarios/verificar_y_eliminar'
     response = requests.delete(delete_url, json={'email': context.user_data['email']})
 
     if response.status_code == 404:
@@ -57,7 +59,7 @@ def step_when_check_and_delete_user(context):
 
 @when('I send a POST request to "{endpoint}" with the user data')
 def step_when_send_post_request(context, endpoint):
-    url = f'http://localhost:5000{endpoint}'
+    url = f'{API_URL}{endpoint}'
     response = requests.post(url, json=context.user_data)
     context.response = response
 
