@@ -5,6 +5,8 @@ import logging
 from jsonschema import validate, ValidationError
 from faker import Faker
 
+API_URL = "http://192.168.1.108:5000"
+
 # Configura el logging al nivel INFO
 logging.basicConfig(level=logging.INFO)
 
@@ -44,7 +46,7 @@ def step_given_random_user_data_for_update(context):
 
 @when('I check if the user exists and create if necessary for update')
 def step_when_check_and_create_user_for_update(context):
-    check_url = f'API_URL = http://192.168.1.108:5000/usuarios/verificar'
+    check_url = f'{API_URL}/usuarios/verificar'
     response = requests.post(check_url, json={'email': context.user_data['email']})
 
     if response.status_code == 404:
