@@ -5,7 +5,7 @@ import logging
 from jsonschema import validate, ValidationError
 from faker import Faker
 
-API_URL = "http://192.168.1.108:5000"
+
 
 # Configura el logging al nivel INFO
 logging.basicConfig(level=logging.INFO)
@@ -43,12 +43,12 @@ def step_given_random_user_data_for_delete(context):
 
 @when('I check if the user exists and create if necessary for delete')
 def step_when_check_and_create_user_for_delete(context):
-    check_url = f'{API_URL}/usuarios/verificar'
+    check_url = f'http://192.168.1.108:5000/usuarios/verificar'
     response = requests.post(check_url, json={'email': context.user_data['email']})
 
     if response.status_code == 404:
         logging.info('User does not exist, creating user.')
-        create_url = f'{API_URL}/usuarios'
+        create_url = f'http://192.168.1.108:5000/usuarios'
         create_response = requests.post(create_url, json=context.user_data)
         logging.info(f'Create user response status code: {create_response.status_code}')  # Logging create user response status code
         logging.info(f'Create user response body: {create_response.text}')  # Logging create user response body
@@ -60,7 +60,7 @@ def step_when_check_and_create_user_for_delete(context):
 
 @when('I obtain a JWT token for the user to delete')
 def step_when_obtain_jwt_token_for_delete(context):
-    login_url = '{API_URL}/auth/login'
+    login_url = 'http://192.168.1.108:5000/auth/login'
     login_data = {
         'email': context.user_data['email'],
         'clave': context.user_data['clave']
@@ -74,7 +74,7 @@ def step_when_obtain_jwt_token_for_delete(context):
 # Paso para enviar la solicitud DELETE para eliminar el usuario
 @when('I send a DELETE request to "{endpoint}" with user data')
 def step_when_send_delete_request(context, endpoint):
-    url = f'{API_URL}{endpoint}'  # Asegúrate de que la URL sea correcta
+    url = f'http://192.168.1.108:5000{endpoint}'  # Asegúrate de que la URL sea correcta
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {context.jwt_token}'  # Incluimos el token JWT en el encabezado
