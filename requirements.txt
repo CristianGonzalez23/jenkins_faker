@@ -10,3 +10,4 @@ behave
 requests
 werkzeug
 faker
+jsonschema
