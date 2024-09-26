@@ -4,7 +4,7 @@ import requests
 from jsonschema import validate, ValidationError
 from faker import Faker
 
-API_URL = "http://192.168.1.108:5000"
+API_URL = "http://192.168.200.131:5000"
 
 # Variable global para almacenar los datos del usuario
 user_data = {}

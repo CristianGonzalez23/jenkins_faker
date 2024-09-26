@@ -5,7 +5,7 @@ import logging
 from jsonschema import validate, ValidationError
 from faker import Faker
 
-API_URL = "http://192.168.1.108:5000"
+API_URL = "http://192.168.200.131:5000"
 
 # Configura el logging al nivel INFO
 logging.basicConfig(level=logging.INFO)
